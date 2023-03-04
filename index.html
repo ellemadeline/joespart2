@@ -1,0 +1,142 @@
+<html>
+  <head>
+   
+    <meta charset = "utf-8">
+    <meta name = 'viewport'content="width=device-width,inital-scale=1">
+    <style>
+      
+      h1{
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-size: 35px ;
+      }
+      #wbold{
+        font-family: 'Courier New', Courier, monospace;
+        font-weight: bold;
+        font-size: 25px;
+      }
+      body{
+      background-repeat: no-repeat;
+      background-color: #cccccc;
+      font-size:25px;
+      }
+      p{display: inline;}
+      #special{
+        font-family: 'Courier New', Courier, monospace;
+        font-weight: bold;
+        font-size: 20px;
+      }
+    </style>
+  </head>
+<body>
+    <script>
+        function MenuItem(name, cost)
+        {
+            this.name = name;
+            this.cost=cost;
+        }
+        
+        menuItems = new Array(
+            new MenuItem("Hot Dogs ", 4.0),
+            new MenuItem("Fries", 3.5),
+            new MenuItem("Sodas", 1.75),
+        );
+        
+        function makeSelect(name, minRange, maxRange)
+{
+	        var t= "";
+	        t = "<select name='" + name + "' size='1'>";
+	        for (j=minRange; j<=maxRange; j++){
+                t += "<option>" + j + "</option>";
+            }
+            t += "<option>" + 10 + "</option>";
+            t += "<option>" + 15 + "</option>";
+            t += "<option>" + 20+ "</option>";
+	        t+= "</select>"; 
+            console.log(t);
+	        return t;
+}
+
+        function td(content, className="")
+        {
+            return "<td class = '" + className + "'>" + content + "</td>";
+        }
+        
+        </script>
+        
+        <!-- MY CSS CODE -->
+        <style>
+        body{
+            font-family: monospace;
+            font-size:12px;
+            background-color: lightblue;
+        }
+        label {
+            display: inline-block;
+            width: 110px;
+        }
+        </style>
+        
+        <h1>Joe's Version 2</h1>
+        <form>
+        <table border="0" cellpadding="3">
+          <tr>
+            <th>Select Item</th>
+            <th>Item Name</th>
+            <th>Cost Each</th>
+          </tr>
+        <script>
+        
+          var s = "";
+          for (i=0; i< menuItems.length; i++){
+            s += "<tr>";
+              s += td(makeSelect("quan" + i, 0, 5),"selectQuantity");
+              s += td(menuItems[i].name, "itemName");
+              s += td("$" + menuItems[i].cost.toFixed(2), "cost");
+              s+= "</tr>";
+          }
+          document.writeln(s);
+        </script>
+        </table>
+        <input type = "button" name = "btn1" value = "Submit Order" />
+        </form>
+        <script>
+            document.getElementsByName("btn1")[0].addEventListener("click",function(){
+                quantites = document.getElementsByTagName("select");
+	            for(let i = 0; i < quantites.length; i++){
+		   
+				        indexChanged = quantites[i].selectedIndex;
+				            quan = quantites[i].getAttribute("name");
+                                if (quan == "quan0"){
+                                    hotDogPrice =  indexChanged * 4.00;
+                                }
+                                if(quan == "quan1"){
+                                    friesPrice =  indexChanged * 3.50;
+                                }
+                                if(quan == "quan2"){
+                                    sodaPrice = indexChanged * 1.75;
+                                }
+                            }
+                    subTotal = 0;
+                    subTotal = subTotal + friesPrice + hotDogPrice + sodaPrice;
+                    taxAmount = subTotal *.0625;
+                    total = subTotal + taxAmount;
+           
+                if(subTotal == 0 ){
+                    alert("You need to place an order!");
+                    return false;
+		    }
+            var myWindow = window.open("", "Thank You!", "width=500,height=400");
+            myWindow.document.write("<p>Thank You! </p>");
+            myWindow.document.write("<p> You ordered " + quantites[0].selectedIndex + " Hot Dogs for the price of $" + hotDogPrice);
+            myWindow.document.write("<p> You ordered " + quantites[1].selectedIndex + " Fries for the price of $" + friesPrice);
+            myWindow.document.write("<p> You ordered " + quantites[2].selectedIndex + " Sodas for the price of $" + sodaPrice);
+            myWindow.document.write("<p> Your subtotal was $ " + subTotal.toFixed(2));
+            myWindow.document.write("<p> Your tax was $ " + taxAmount.toFixed(2));
+            myWindow.document.write("<p> Your total was $ " + total.toFixed(2));
+    
+    
+        })
+
+        </script>
+</body>
+</html>
